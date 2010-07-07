@@ -1,0 +1,29 @@
+<% slide_captcha_image_url = url_for(:controller => "slide_captcha", :action => :show, :id => id) -%>
+<div id="slide_captcha">
+	<p>Move the slider until the word lines up in the image, and enter this word in the text box below:</p>
+	<div id="slide_captcha_image">
+		<div id="slide_captcha_top" style="background-image:url(<%= slide_captcha_image_url -%>)"></div>
+		<div id="slide_captcha_bottom" style="background-image:url(<%= slide_captcha_image_url -%>)"></div>
+	</div>
+	
+  <div id="slide_captcha_track">
+    <div id="slide_captcha_handle"> </div>
+  </div>
+  
+  <%= hidden_field :slide_captcha_response, :id, :value => id %>
+  <%= text_field :slide_captcha_response, :code %>
+</div>
+</div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	function captchaSlide(v) {
+		$('slide_captcha_top').setStyle({backgroundPosition: v+'px 0'});
+		$('slide_captcha_bottom').setStyle({backgroundPosition: '-'+v+'px -25px'});
+	}
+	
+  new Control.Slider('slide_captcha_handle','slide_captcha_track',{range:$R(0,125),
+	  onSlide:function(v){captchaSlide(v)},
+	  onChange:function(v){captchaSlide(v)}});
+/* ]]> */
+</script>

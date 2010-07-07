@@ -1,0 +1,33 @@
+SlideCAPTCHA
+============
+
+CAPTCHAs getting too hard to read, even for a human? SlideCAPTCHA uses a slightly different approach, using an image with easily-read text, but one caveat for OCRs: the human must move a slider to line the text up properly. Humans can do this easily, but OCRs must transform the image and attempt text recognition multiple times.
+
+
+Example
+=======
+
+Include SlideCAPTCHA in your form with the following code:
+
+<%= slide_captcha_tags %>
+
+Verify responses by calling the following in your controller:
+
+verify_slide_captcha(options)
+
+True if verified, false if the response is incorrect. Optional available options are
+:model		=> A model to attach errors to, probably the main subject of your form.
+:message	=> A custom error message.
+
+Example usage:
+
+if verify_slide_captcha(:model => @user, :message => "Robot test failed") then @user.save
+
+SlideCAPTCHA uses the prototype and scriptaculous javascript libraries for the slider effects. These libraries are included with Rails by default can be included in a page as follows:
+
+<%= javascript_include_tag :defaults %>
+
+Scriptaculous slider effects may not be available with all versions of Rails. If this is the case with you copy slider.js from the plugin's public/javascripts to your public/javascripts directory.
+
+
+Copyright (c) 2010 Pete Hau, released under the MIT license
