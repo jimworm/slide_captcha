@@ -1,7 +1,7 @@
-slide_captcha
+SlideCAPTCHA
 ============
 
-CAPTCHAs getting too hard to read, even for a human? slide_captcha uses a slightly different approach, using an image with easily-read text, but one caveat for bots: the human must move a slider to line the text up properly. Humans can do this easily, but bots must transform the image and attempt text recognition multiple times.
+CAPTCHAs getting too hard to read, even for a human? SlideCAPTCHA uses a slightly different approach, using an image with easily-read text, but with one difficulty for bots: the human must move a slider to line the text up properly. Humans can do this easily, but bots must transform the image and attempt text recognition multiple times.
 
 
 Dependencies
@@ -24,17 +24,14 @@ script/plugin install git://github.com/jimworm/slide_captcha.git
 Create tables:
 rake db:migrate:slide_captcha:up
 
-Build codes:
-rake slide_captcha:build_codes
-
-Generate images (takes about 60s on a 1.83GHz Intel Core 2 Duo with OSX):
-rake slide_captcha:generate_images
+Generate codes and images (takes about 60s on a 1.83GHz Intel Core 2 Duo with OSX):
+rake slide_captcha:build_all
 
 
 Usage
 =====
 
-Include SlideCAPTCHA in your form with the following code:
+Include SlideCAPTCHA in your forms with the following code:
 
 <%= slide_captcha_tags %>
 
@@ -48,7 +45,7 @@ Returns true if verified, false if the response is incorrect. Available options 
 
 Example usage:
 
-if verify_slide_captcha(:model => @user, :message => "Robot test failed")
+if verify_slide_captcha(:model => @user, :message => "No robots allowed")
   @user.save
 else
   render :action => :edit
@@ -65,22 +62,20 @@ Creates/drops tables "slide_captcha_codes", "slide_captcha_sessions"
 
 ***
 
-rake slide_captcha:build_codes length=x n=y
+rake slide_captcha:build_all length=x n=y
+rake slide_captcha:reset length=x n=y
 
 Fills table "slide_captcha_codes" with y random codes x characters long.
-Default: length=7 n=10000
+Reset also expires all sessions and delete all codes before proceeding.
+Default: length=6 n=10000
 
-***
-
-rake slide_captcha:generate_images
-
-Generates images for all codes in table "slide_captcha_codes", takes about 6s for 1000 images.
+Note: Creates unique codes only, it'll not allow you to use up more than 10% of the available codespace.
 
 ***
 
 rake slide_captcha:expire_sessions before=x
 
-Deletes rows in "slide_captcha_sessions" created before x, where x is a duration in Rails format eg. "60.minutes.ago".
+Deletes rows in "slide_captcha_sessions" created before x, where x is a string that could be evaluated to a date or time in Rails eg. "10.minutes.ago", "Date.yesterday", "Time.now".
 Default: before=30.minutes.ago
 
 

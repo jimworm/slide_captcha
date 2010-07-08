@@ -536,3 +536,58 @@
   [4;35;1mSlideCaptchaSession Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `slide_captcha_sessions`[0m
   [4;36;1mSlideCaptchaCode Load (1.1ms)[0m   [0;1mSELECT * FROM `slide_captcha_codes` [0m
   [4;35;1mSlideCaptchaSession Load (0.3ms)[0m   [0mSELECT * FROM `slide_captcha_sessions` [0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (107.2ms)[0m   [0;1mDROP TABLE `slide_captcha_codes`[0m
+  [4;35;1mSQL (3.0ms)[0m   [0mCREATE TABLE `slide_captcha_codes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (2.9ms)[0m   [0mDROP TABLE `slide_captcha_sessions`[0m
+  [4;36;1mSQL (33.7ms)[0m   [0;1mCREATE TABLE `slide_captcha_sessions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `slide_captcha_code_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (9.0ms)[0m   [0mCREATE UNIQUE INDEX `index_slide_captcha_codes_on_code` ON `slide_captcha_codes` (`code`)[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSlideCaptchaCode Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `slide_captcha_codes`[0m
+  [4;35;1mSlideCaptchaCode Load (0.6ms)[0m   [0mSELECT * FROM `slide_captcha_codes` ORDER BY rand() LIMIT 1[0m
+  [4;36;1mSlideCaptchaSession Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `slide_captcha_sessions`[0m
+  [4;35;1mSlideCaptchaCode Load (0.4ms)[0m   [0mSELECT * FROM `slide_captcha_codes` [0m
+  [4;36;1mSlideCaptchaSession Load (0.4ms)[0m   [0;1mSELECT * FROM `slide_captcha_sessions` [0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (83.3ms)[0m   [0;1mDROP TABLE `slide_captcha_codes`[0m
+  [4;35;1mSQL (33.2ms)[0m   [0mCREATE TABLE `slide_captcha_codes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mDROP TABLE `slide_captcha_sessions`[0m
+  [4;36;1mSQL (3.5ms)[0m   [0;1mCREATE TABLE `slide_captcha_sessions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `slide_captcha_code_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (27.9ms)[0m   [0mCREATE UNIQUE INDEX `index_slide_captcha_codes_on_code` ON `slide_captcha_codes` (`code`)[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSlideCaptchaCode Columns (2.9ms)[0m   [0;1mSHOW FIELDS FROM `slide_captcha_codes`[0m
+  [4;35;1mSlideCaptchaCode Load (0.6ms)[0m   [0mSELECT * FROM `slide_captcha_codes` ORDER BY rand() LIMIT 1[0m
+  [4;36;1mSlideCaptchaSession Columns (2.9ms)[0m   [0;1mSHOW FIELDS FROM `slide_captcha_sessions`[0m
+  [4;35;1mSlideCaptchaCode Load (0.4ms)[0m   [0mSELECT * FROM `slide_captcha_codes` [0m
+  [4;36;1mSlideCaptchaSession Load (0.3ms)[0m   [0;1mSELECT * FROM `slide_captcha_sessions` [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (26.9ms)[0m   [0;1mDROP TABLE `slide_captcha_codes`[0m
+  [4;35;1mSQL (26.0ms)[0m   [0mCREATE TABLE `slide_captcha_codes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (2.6ms)[0m   [0mDROP TABLE `slide_captcha_sessions`[0m
+  [4;36;1mSQL (3.6ms)[0m   [0;1mCREATE TABLE `slide_captcha_sessions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `slide_captcha_code_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (8.6ms)[0m   [0mCREATE UNIQUE INDEX `index_slide_captcha_codes_on_code` ON `slide_captcha_codes` (`code`)[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSlideCaptchaCode Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `slide_captcha_codes`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSlideCaptchaCode Load (0.4ms)[0m   [0;1mSELECT * FROM `slide_captcha_codes` ORDER BY rand() LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSlideCaptchaSession Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `slide_captcha_sessions`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mSlideCaptchaCode Load (0.3ms)[0m   [0;1mSELECT * FROM `slide_captcha_codes` [0m
+  [4;35;1mSlideCaptchaSession Load (0.3ms)[0m   [0mSELECT * FROM `slide_captcha_sessions` [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m

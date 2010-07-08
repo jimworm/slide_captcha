@@ -2,7 +2,6 @@ class AddSlideCaptchaTables < ActiveRecord::Migration
   def self.up
 	  create_table :slide_captcha_codes, :force => true do |t|
 	  	t.string	:code, :null => false
-	  	t.timestamps
 	  end
 	  
 	  create_table :slide_captcha_sessions, :force => true do |t|

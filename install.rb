@@ -1,1 +1,1 @@
-# Install hook code here
+FileUtils.cp_r("#{File.dirname(__FILE__)}/../public/stylesheets/", "#{RAILS_ROOT}/public/stylesheets/", :preserve)
