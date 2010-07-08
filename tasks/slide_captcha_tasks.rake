@@ -68,9 +68,9 @@ namespace :slide_captcha do
 		end
 	end
 	
-	task :clean_sessions do
-		ENV['limit'] ||= '10.minutes.ago'
-		time_limit = eval ENV['limit']
+	task :expire_sessions do
+		ENV['before'] ||= '30.minutes.ago'
+		time_limit = eval ENV['before']
 		n = SlideCaptchaSession.delete_all(["created_at < ?", time_limit])
 		puts "Deleted #{n} sessions dated before #{time_limit}"
 	end
