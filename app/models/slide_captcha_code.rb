@@ -23,7 +23,7 @@ class SlideCaptchaCode < ActiveRecord::Base
 		bg_color = source_image.colorAllocate(255, 255, 255)
 		font_color = source_image.colorAllocate(178, 178, 178)
 		font_size = 30
-		font_file = 'vendor/plugins/slide_captcha/lib/arialmtrbd.ttf'
+		font_file = 'vendor/plugins/slide_captcha/lib/comicsansms.ttf'
 		
 		source_image.filledRectangle(0, 0, width, height, bg_color)
 		source_image.stringFT(font_color, font_file, font_size, 0, 10, 40, random_case_code)
@@ -32,6 +32,7 @@ class SlideCaptchaCode < ActiveRecord::Base
 		source_image.copy(output_image, unwrapped_width, 0, 0, 0, wrapped_width, top_height)
 		source_image.copy(output_image, 0, top_height, unwrapped_width, top_height, wrapped_width, bottom_height)
 		source_image.copy(output_image, offset, top_height, 0, top_height, unwrapped_width, bottom_height)
+		output_image.filledRectangle(0, 23, width, 27, bg_color)
 		
 		# make the directory if it doesn't already exist
     FileUtils.makedirs File.dirname(image_path)
@@ -41,7 +42,13 @@ class SlideCaptchaCode < ActiveRecord::Base
 	def random_case_code
 		output = ''
 		code.each_char do |c|
-			output += (rand(2).odd?) ? c : c.upcase
+			if c == 'l'
+				output += c.upcase
+			elsif c == 'i'
+				output += c
+			else
+				output += (rand(2).odd?) ? c : c.upcase
+			end
 		end
 		output
 	end

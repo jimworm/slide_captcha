@@ -10,12 +10,13 @@ div#slide_captcha_image {
 		#slide_captcha_top { background-position: 0 0; }
 		#slide_captcha_bottom { background-position: 0 -25px; }
 	#slide_captcha_track {
-		width: 200px;
+		width: 250px;
 		background-color: #aaa;
 		height: 5px;
+		margin: 5px 0 20px;
 	}
 	#slide_captcha_handle {
-		width: 5px;
-		height: 10px;
+		width: 10px;
+		height: 20px;
 		background-color: #f00;
 	}
