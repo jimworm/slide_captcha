@@ -33,9 +33,9 @@ Include SlideCAPTCHA in your forms with the following code:
 
 Verify responses by calling the following in your controller:
 
-	veryfiy_slide_captcha(options)
+	verify_slide_captcha(options)
 
-===+ verify_slide_captcha(options) +
+== +verify_slide_captcha(options)+
 
 Returns true if verified, false if the response is incorrect. Available options (optional) are
 <tt>:model</tt>::		A model to attach errors to, probably the object of your form.
@@ -57,7 +57,7 @@ Example usage:
 
 Creates/drops tables "slide_captcha_codes", "slide_captcha_sessions"
 
-***
+
 
 	rake slide_captcha:build_all length=x n=y
 	rake slide_captcha:reset length=x n=y
@@ -68,7 +68,7 @@ Default: length=6 n=10000
 
 Note: Creates unique codes only, it'll not allow you to use up more than 10% of the available codespace.
 
-***
+
 
 	rake slide_captcha:expire_sessions before=x
 
