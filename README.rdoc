@@ -1,11 +1,9 @@
-SlideCAPTCHA
-============
+=SlideCAPTCHA
 
 CAPTCHAs getting too hard to read, even for a human? SlideCAPTCHA uses a slightly different approach, using an image with easily-read text, but with one difficulty for bots: the human must move a slider to line the text up properly. Humans can do this easily, but bots must transform the image and attempt text recognition multiple times.
 
 
-Dependencies
-============
+==Dependencies
 
 Scriptaculous and Prototype http://script.aculo.us
 Ruby/GD http://rubyforge.org/projects/ruby-gd/
@@ -15,55 +13,54 @@ Scriptaculous slider effects may not be available with all versions of Rails. If
 Ruby/GD is required for image generation.
 
 
-Setup
-=====
+==Setup
 
 Install:
-script/plugin install git://github.com/jimworm/slide_captcha.git
+	script/plugin install git://github.com/jimworm/slide_captcha.git
 
 Create tables:
-rake db:migrate:slide_captcha:up
+	rake db:migrate:slide_captcha:up
 
 Generate codes and images (takes about 60s on a 1.83GHz Intel Core 2 Duo with OSX):
-rake slide_captcha:build_all
+	rake slide_captcha:build_all
 
 
-Usage
-=====
+==Usage
 
 Include SlideCAPTCHA in your forms with the following code:
 
-<%= slide_captcha_tags %>
+	<%= slide_captcha_tags %>
 
 Verify responses by calling the following in your controller:
 
-verify_slide_captcha(options)
+	veryfiy_slide_captcha(options)
+
+===+ verify_slide_captcha(options) +
 
 Returns true if verified, false if the response is incorrect. Available options (optional) are
-:model		=> A model to attach errors to, probably the object of your form.
-:message	=> A custom error message.
+<tt>:model</tt>::		A model to attach errors to, probably the object of your form.
+<tt>:message</tt>::	A custom error message.
 
 Example usage:
 
-if verify_slide_captcha(:model => @user, :message => "No robots allowed")
-  @user.save
-else
-  render :action => :edit
-end
+	if verify_slide_captcha(:model => @user, :message => "No robots allowed")
+	  @user.save
+	else
+	  render :action => :edit
+	end
 
 
-Rake tasks
-==========
+==Rake tasks
 
-rake db:migrate:slide_captcha:up
-rake db:migrate:slide_captcha:down
+	rake db:migrate:slide_captcha:up
+	rake db:migrate:slide_captcha:down
 
 Creates/drops tables "slide_captcha_codes", "slide_captcha_sessions"
 
 ***
 
-rake slide_captcha:build_all length=x n=y
-rake slide_captcha:reset length=x n=y
+	rake slide_captcha:build_all length=x n=y
+	rake slide_captcha:reset length=x n=y
 
 Fills table "slide_captcha_codes" with y random codes x characters long.
 Reset also expires all sessions and delete all codes before proceeding.
@@ -73,14 +70,13 @@ Note: Creates unique codes only, it'll not allow you to use up more than 10% of 
 
 ***
 
-rake slide_captcha:expire_sessions before=x
+	rake slide_captcha:expire_sessions before=x
 
 Deletes rows in "slide_captcha_sessions" created before x, where x is a string that could be evaluated to a date or time in Rails eg. "10.minutes.ago", "Date.yesterday", "Time.now".
 Default: before=30.minutes.ago
 
 
-TODO
-====
+==TODO
 
 * Further customization options
 * Nicer configs
