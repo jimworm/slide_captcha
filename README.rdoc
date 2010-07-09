@@ -5,8 +5,8 @@ CAPTCHAs getting too hard to read, even for a human? SlideCAPTCHA uses a slightl
 
 ==Dependencies
 
-Scriptaculous and Prototype http://script.aculo.us
-Ruby/GD http://rubyforge.org/projects/ruby-gd/
+Scriptaculous and Prototype:: http://script.aculo.us
+Ruby/GD:: http://rubyforge.org/projects/ruby-gd/
 
 Scriptaculous slider effects may not be available with all versions of Rails. If this is the case, copy slider.js from the plugin's public/javascripts to your public/javascripts directory.
 
@@ -77,6 +77,8 @@ Default: before=30.minutes.ago
 ==TODO
 
 * Further customization options
-* Nicer configs
+* Remove requirement for GD and only use RMagic if possible
+* Centralised configs
+* Eventually, use CSS3 for more complicated transformations
 
 Copyright (c) 2010 Pete Hau, released under the MIT license
