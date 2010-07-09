@@ -35,8 +35,6 @@ Verify responses by calling the following in your controller:
 
 	verify_slide_captcha(options)
 
-== +verify_slide_captcha(options)+
-
 Returns true if verified, false if the response is incorrect. Available options (optional) are
 <tt>:model</tt>::		A model to attach errors to, probably the object of your form.
 <tt>:message</tt>::	A custom error message.
