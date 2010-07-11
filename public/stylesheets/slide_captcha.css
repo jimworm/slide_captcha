@@ -5,10 +5,7 @@ div#slide_captcha_image {
 	#slide_captcha_image div {
 		background-repeat: repeat-x;
 		width: 250px;
-		height: 25px;
 	}
-		#slide_captcha_top { background-position: 0 0; }
-		#slide_captcha_bottom { background-position: 0 -25px; }
 	#slide_captcha_track {
 		width: 250px;
 		background-color: #aaa;

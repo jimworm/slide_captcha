@@ -1,6 +1,10 @@
 class SlideCaptchaCode < ActiveRecord::Base
 	has_many :slide_captcha_sessions
 	
+	IMAGE_WIDTH = 250
+	IMAGE_HEIGHT = 50
+	N_SLICES = 10
+	
 	def self.random
     find(:first, :order => "rand()")
   end
@@ -11,28 +15,51 @@ class SlideCaptchaCode < ActiveRecord::Base
 	
 	def generate_image
 		image_path = "#{RAILS_ROOT}/tmp/cache/slide_captcha/#{code}.png"
-		width = 250
-		height = 50
+		font_path = "#{RAILS_ROOT}/vendor/plugins/slide_captcha/lib/fonts/"
+		width = IMAGE_WIDTH
+		height = IMAGE_HEIGHT
+		n_slices = N_SLICES
 		
-		top_height = height / 2
-		bottom_height = height - top_height
-		offset = wrapped_width = rand(113) + 12
-		unwrapped_width = width - offset
+		font_exts = %w(ttf ffil dfont)
+		fonts = []
+		Dir.foreach(font_path) do |f|
+			ext = f.partition('.').last
+			fonts.push(f.to_s) if font_exts.include?(ext)
+		end
 		
 		source_image = GD::Image.newTrueColor(width, height)
 		bg_color = source_image.colorAllocate(255, 255, 255)
-		font_color = source_image.colorAllocate(178, 178, 178)
+		font_color = source_image.colorAllocate(78, 78, 78)
 		font_size = 30
-		font_file = 'vendor/plugins/slide_captcha/lib/comicsansms.ttf'
+		font_file = "#{font_path}#{fonts.shuffle[0]}"
 		
 		source_image.filledRectangle(0, 0, width, height, bg_color)
 		source_image.stringFT(font_color, font_file, font_size, 0, 10, 40, random_case_code)
 		output_image = GD::Image.newTrueColor(width, height)
-		source_image.copy(output_image, 0, 0, offset, 0, unwrapped_width, top_height)
-		source_image.copy(output_image, unwrapped_width, 0, 0, 0, wrapped_width, top_height)
-		source_image.copy(output_image, 0, top_height, unwrapped_width, top_height, wrapped_width, bottom_height)
-		source_image.copy(output_image, offset, top_height, 0, top_height, unwrapped_width, bottom_height)
-		output_image.filledRectangle(0, 23, width, 27, bg_color)
+		
+		offset = rand(113) + 12
+		slice_height = height / n_slices
+		
+		for slice in 1..n_slices do
+			if slice % 2 == 0
+				slice_offset = offset
+			else
+				slice_offset = width - offset
+			end
+			a_width = slice_offset
+			b_width = width - slice_offset
+			y = (slice - 1) * slice_height
+			
+			source_image.copy(output_image, 0, y, slice_offset, y, b_width, slice_height)
+			source_image.copy(output_image, b_width, y, 0, y, a_width, slice_height)
+		end
+		
+		(1..(height - 1)).step(2) do |n|
+			output_image.filledRectangle(0, n, width, n+1, rand(2) == 0 ? font_color : bg_color) if n % 2 == 1 and rand(4) == 0
+		end
+		(1..(width - 1)).step(2) do |n|
+			output_image.line(n + (rand(9) - 2), 0, n + (rand(9) - 2), height, rand(2) == 0 ? font_color : bg_color) if n % 2 == 1 and rand(6) == 0
+		end
 		
 		# make the directory if it doesn't already exist
     FileUtils.makedirs File.dirname(image_path)

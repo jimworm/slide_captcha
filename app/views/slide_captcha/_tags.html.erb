@@ -2,8 +2,9 @@
 <div id="slide_captcha">
 	<p>Move the slider until the word lines up in the image, and enter this word in the text box below:</p>
 	<div id="slide_captcha_image">
-		<div id="slide_captcha_top" style="background-image:url(<%= slide_captcha_image_url -%>)"></div>
-		<div id="slide_captcha_bottom" style="background-image:url(<%= slide_captcha_image_url -%>)"></div>
+		<% for slice in 1..SlideCaptchaCode::N_SLICES do -%>
+		<div id="<%= "slide_captcha_#{slice}" -%>" style="height: <%= SlideCaptchaCode::IMAGE_HEIGHT / SlideCaptchaCode::N_SLICES -%>px;background-image:url(<%= slide_captcha_image_url -%>)"></div>
+		<% end -%>
 	</div>
 	
   <div id="slide_captcha_track">
@@ -17,9 +18,16 @@
 
 <script type="text/javascript">
 /* <![CDATA[ */
+	document.observe("dom:loaded", function() {
+		captchaSlide(0);
+	});
+	
 	function captchaSlide(v) {
-		$('slide_captcha_top').setStyle({backgroundPosition: v+'px 0'});
-		$('slide_captcha_bottom').setStyle({backgroundPosition: '-'+v+'px -25px'});
+		for(i = 1; i < <%= SlideCaptchaCode::N_SLICES + 1 -%>; i++) {
+			(i % 2) ? offset_x = -v : offset_x = v;
+			offset_y = (-<%= SlideCaptchaCode::IMAGE_HEIGHT -%> * (i - 1) / <%= SlideCaptchaCode::N_SLICES -%>)
+			$('slide_captcha_' + i).setStyle({backgroundPosition: offset_x + 'px ' + offset_y + 'px'});
+		}
 	}
 	
   new Control.Slider('slide_captcha_handle','slide_captcha_track',{range:$R(0,125),

@@ -22,7 +22,7 @@ namespace :slide_captcha do
  	config = YAML::load(IO.read('config/database.yml'))
 	ActiveRecord::Base.establish_connection(config[RAILS_ENV])
 	
-	task :build_all do
+	task :add_codes do
 		Rake::Task['slide_captcha:generate_codes'].execute
 		Rake::Task['slide_captcha:generate_images'].execute
 	end
@@ -35,6 +35,8 @@ namespace :slide_captcha do
 	end
 	
 	task :generate_codes do
+		start_time = Time.now
+		
 		if ENV.include?('length') && ENV['length'].to_i > 0
 			length = ENV['length'].to_i
 		else
@@ -58,18 +60,21 @@ namespace :slide_captcha do
 				end until !SlideCaptchaCode.exists?(:code => code)
 				SlideCaptchaCode.create :code => code
 			end
-			puts "Code generation complete"
+			duration = Time.now - start_time
+			puts "Code generation complete (took #{duration} seconds)"
 		end
 	end
 	
 	task :generate_images do
+		start_time = Time.now
 		count = SlideCaptchaCode.count
 		if count > 0
 			puts "#{count} images to generate..."
 			SlideCaptchaCode.all.each do |code|
 				code.generate_image
 			end
-			puts "Image generation complete"
+			duration = Time.now - start_time
+			puts "Image generation complete (took #{duration} seconds)"
 		else
 			puts 'No codes in database. Run "rake slide_captcha:generate_codes" to generate codes first'
 		end
